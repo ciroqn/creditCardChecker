@@ -1,3 +1,5 @@
+// Note the functions are peppered with log statements for readability.
+
 // All valid credit card numbers
 const valid1 = [4, 5, 3, 9, 6, 7, 7, 9, 0, 8, 0, 1, 6, 8, 0, 8];
 const valid2 = [5, 5, 3, 5, 7, 6, 6, 7, 6, 8, 7, 5, 1, 4, 3, 9];
@@ -22,3 +24,42 @@ const mystery6 = [8, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3];
 
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5, mystery6];
+
+// Function to validate credit cards. The original credit card number/array is not mutated, but separated into two arrays to be tested by Luhn:
+const validateCred = arr => {
+  let luhnAlgArr = [];
+  let toBeDoubled = [];
+  // create new array:
+  for (let i = arr.length-1; i >= 0; i-=2) {
+    luhnAlgArr.push(arr[i]);
+  }
+  console.log('Combine this:');
+  console.log(luhnAlgArr);
+  console.log('\n');
+  for (let i = arr.length-2; i >= 0; i-=2) {
+    toBeDoubled.push(arr[i]);
+  }
+  let doubledArr = toBeDoubled.map(num => {
+    return 2*num;
+  });
+  for (let i = 0; i < doubledArr.length; i++) {
+    if (doubledArr[i] > 9) {
+      doubledArr[i] -= 9;
+    }
+  };
+  console.log('\n');
+  console.log('...with this:');
+  console.log(doubledArr);
+  console.log('\n');
+  // Combine luhnAlgArr and doubledArr:
+  let finalArr = [...luhnAlgArr, ...doubledArr];
+  console.log(finalArr);
+  let sum = finalArr.reduce((currentValue, accumulator) => {
+    return currentValue + accumulator;
+  });
+  if (sum % 10 === 0) {
+    return 'This card is valid.';
+  } else {
+    return 'This card is invalid.';
+  }
+};
