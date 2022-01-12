@@ -63,3 +63,16 @@ const validateCred = arr => {
     return 'This card is invalid.';
   }
 };
+
+// Finding invalid cards using the batch array. More efficient than checking one-by-one:
+const findInvalidCards = nestedArr => {
+  let nestedInvalidCards = [];
+  for (let i = 0; i < nestedArr.length; i++) {
+    console.log(nestedArr[i]);
+    let result = validateCred(nestedArr[i]);
+    if (result === 'This card is invalid.') {
+      nestedInvalidCards.push(nestedArr[i]);
+    }
+  };
+  return nestedInvalidCards;
+};
