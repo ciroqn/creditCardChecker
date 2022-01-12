@@ -76,3 +76,37 @@ const findInvalidCards = nestedArr => {
   };
   return nestedInvalidCards;
 };
+
+// This function returns an array of banks that have issued invalid credit card numbers. The array only includes each bank once, rather than inlcuding one bank 
+// more than once. The function also provides the user with the number of instances that the source of the invalid CC is unkown.
+const idInvalidCardCompanies = nestedArr => {
+  let invalidSource = [];
+  let counter = 0;
+  for (let i = 0; i < nestedArr.length; i++) {
+    let companyId = nestedArr[i][0];
+    console.log(companyId);
+    if (companyId === 3) {
+      if (!invalidSource.includes('Amex')) {
+        invalidSource.push('Amex');
+      }
+    } else if (companyId === 4) {
+      if (!invalidSource.includes('Visa')) {
+        invalidSource.push('Visa');
+      }
+    } else if (companyId === 5) {
+      if (!invalidSource.includes('Mastercard')) {
+        invalidSource.push('Mastercard');
+    }
+    }
+   else if (companyId === 6) {
+      if (!invalidSource.includes('Discover')) {
+        invalidSource.push('Discover');
+      }
+   } else if (companyId < 3 || companyId > 6) {
+     counter++;
+   }
+  }
+  const grammarTernary = (counter > 1) ? "were ":"was ";
+  console.log("There " + grammarTernary  + counter + " instance(s) of 'source of invalid card unknown'");
+  return invalidSource;
+};
