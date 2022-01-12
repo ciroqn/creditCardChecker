@@ -148,11 +148,18 @@ const invalidToValid = arr => {
     return currentValue + accumulator;
   });
   
+  // Manipulate sum to pass Luhn:
+  let sumToManipulate = sum;
+  while (sumToManipulate % 10 !== 0) {
+    sumToManipulate++;
+  };
+  
+  // If input to this function is a valid card, then a statement is logged saying this:
  if (sum % 10 === 0) {
     return 'Your card is already valid.';
   };
 
-  // If sum of card number is divisible by 10, it passes Luhn:
+  // If sum of card number is divisible by 10, it passes Luhn. Invalid card inputs will return this:
   console.log(sumToManipulate);
   if (sumToManipulate % 10 === 0) {
     return 'Your card was initially invalid, but it now passes the Luhn Algorithm';
