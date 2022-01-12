@@ -119,4 +119,52 @@ const convertStringToNums = arr => {
   return arr;
 };
 
+//Convert Invalid Card to Valid Card. Essentially the same as validateCred(...) but with some tweaking with the sum. 
+// Note this does not change the card number, only the sum, which must be divisible by 10 to pass the Luhn algorithm.
+const invalidToValid = arr => {
+  let luhnAlgArr = [];
+  let toBeDoubled = [];
+  // create new array:
+  for (let i = arr.length-1; i >= 0; i-=2) {
+    luhnAlgArr.push(arr[i]);
+  }
+  console.log('Combine this:');
+  console.log(luhnAlgArr);
+  console.log('\n');
+  for (let i = arr.length-2; i >= 0; i-=2) {
+    toBeDoubled.push(arr[i]);
+  }
+  let doubledArr = toBeDoubled.map(num => {
+    return 2*num;
+  });
+  for (let i = 0; i < doubledArr.length; i++) {
+    if (doubledArr[i] > 9) {
+      doubledArr[i] -= 9;
+    }
+  };
+  console.log('\n');
+  console.log('...with this:');
+  console.log(doubledArr);
+  console.log('\n');
+  // Combine luhnAlgArr and doubledArr:
+  let finalArr = [...luhnAlgArr, ...doubledArr];
+  console.log(finalArr);
+  let sum = finalArr.reduce((currentValue, accumulator) => {
+    return currentValue + accumulator;
+  });
+  console.log(sum);
+  
+  // Changing sum so it's divisilbe by 10:
+  let sumToManipulate = sum;
+  while (sumToManipulate % 10 !== 0) {
+    sumToManipulate++;
+  }
+  
+  // If sum of card number is divisible by 10, it passes Luhn:
+  console.log(sumToManipulate);
+  if (sumToManipulate % 10 === 0) {
+    return 'Your card passes the Luhn Algorithm';
+  };
+};
+
 
