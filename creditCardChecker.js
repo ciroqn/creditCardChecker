@@ -110,3 +110,13 @@ const idInvalidCardCompanies = nestedArr => {
   console.log("There " + grammarTernary  + counter + " instance(s) of 'source of invalid card unknown'");
   return invalidSource;
 };
+
+// If array has 'string numbers' and needs to be converted to type 'number' using parseInt() function:
+const convertStringToNums = arr => {
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = parseInt(arr[i]);
+  }
+  return arr;
+};
+
+
